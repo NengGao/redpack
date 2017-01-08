@@ -6,8 +6,6 @@
 var gulp = require('gulp');
 // 用来压缩hmtl的依赖包
 var htmlmin = require('gulp-htmlmin');
-// 用来压缩css的依赖包
-var cssnano = require('gulp-cssnano');
 // 最小化css文件
 var minifycss = require('gulp-minify-css');
 // 用于缓存的依赖包
@@ -73,8 +71,6 @@ gulp.task('styles', function() {
     return gulp.src('./public/css/**/*.css')
         //加上兼容性前缀
         .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-        //压缩css
-        .pipe(cssnano())
         // 最小化CSS代码
         .pipe(minifycss())
         // 指定生成到哪个目录下去
@@ -204,7 +200,7 @@ gulp.task('server',function() {
 /*
  * 通过gulp一下自动执行默认的任务  start 
  */
-gulp.task('default', ['configFile','bin'],function(cb){
+gulp.task('default', ['configFile','bin','watch'],function(cb){
 	//开启nodemon自动重启服务
 	  var started = false;
 	  return nodemon({

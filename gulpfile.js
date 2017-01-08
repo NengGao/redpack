@@ -37,7 +37,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var basedir = './';
 var publicdir = './public';
 var filepath = {
-    'views': path.join(basedir, 'views/**/*.html'),
+    'views': path.join(basedir, '/views/**/*.html'),
     'css': path.join(publicdir, '*/css/**/*.css'),
     'js': path.join(publicdir, '*/js/**/*.js'),
     'routes': path.join(basedir, '/routes/**/*.js')
@@ -121,27 +121,12 @@ gulp.task('scripts', function() {
  */
 
 /*
- * 同步拷贝public下的js文件下插件样式及图片到dist目录的public下   start
- */
-gulp.task('lib', function() {
-    return gulp.src(['./public/js/**/*.css','./public/js/**/*.png','./public/js/**/*.jpg'])
-        // 指定生成到哪个目录下去
-        .pipe(gulp.dest('./dist/public/js'))
-        .pipe(bs.reload({stream:true}))
-});
-/*
- * 同步拷贝public下的js文件下插件样式及图片到dist目录的public下  end
- */
-
-/*
  * router的同步拷贝和压缩  start
  */
 gulp.task('routes', function() {
     return gulp.src('./routes/**/*.js')
         // 对报错的js代码进行错误提示
         .pipe(plumber())
-        // JS文件合并，这里不需要直接先注释,根据实际需求来就行了
-        //.pipe(concat('all.js'))
         // JS代码压缩
         .pipe(uglify())
         // 指定生成到哪个目录下去
@@ -159,8 +144,6 @@ gulp.task('configFile', function() {
     return gulp.src(['./*.js', '!./gulpfile.js'])
         // 对报错的js代码进行错误提示
         .pipe(plumber())
-        // JS文件合并，这里不需要直接先注释,根据实际需求来就行了
-        //.pipe(concat('all.js'))
         // JS代码压缩
         .pipe(uglify())
         // 指定生成到哪个目录下去
@@ -182,16 +165,15 @@ gulp.task('bin', function() {
  * 同步和拷贝bin目录过去  end
  */
 //字体文件
-// gulp.task("font",function(){
-// 	return gulp.src(['./sass/*/stylesheets/**/*.eot','./sass/*/stylesheets/**/*.svg','./sass/*/stylesheets/**/*.ttf','./sass/*/stylesheets/**/*.woff'])
-// 	.pipe(gulp.dest('./dist/public/'))
-// 	.pipe(gulp.dest('./public/'))
-// 	.pipe(bs.stream());
-// })
+gulp.task("fonts",function(){
+	return gulp.src('./public/fonts')
+	.pipe(gulp.dest('./dist/public/fonts'))
+	.pipe(bs.stream());
+})
 /*
  * gulp监听文件变化  start
  */
-gulp.task('watch',['views','styles','images','scripts','lib','routes'],function() {
+gulp.task('watch',['views','styles','images','scripts','fonts','routes'],function() {
      //watch监听文件变化
     gulp.watch(['./views/**/*.html','./public/*/css/**/*.css','./public/*/images/*.*','./public/*/js/**/*.js','./routes/**/*.js','./bin/*'])
     .on('change', function(event) {
@@ -222,7 +204,7 @@ gulp.task('server',function() {
 /*
  * 通过gulp一下自动执行默认的任务  start 
  */
-gulp.task('default', ['views','styles','images','scripts','lib','routes','configFile','bin','watch'],function(cb){
+gulp.task('default', ['configFile','bin'],function(cb){
 	//开启nodemon自动重启服务
 	  var started = false;
 	  return nodemon({

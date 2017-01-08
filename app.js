@@ -5,7 +5,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var app = express();
-
+var viewPath = path.join(__dirname,'./views');
+var template = require('art-template');
 // 将jade模板引擎替换为art引擎模板
 app.set('views', path.join(viewPath));
 //app.set('view engine', 'pug');
@@ -30,8 +31,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //路由汇总
 routes(app);
-
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

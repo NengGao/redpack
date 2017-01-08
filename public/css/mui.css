@@ -1473,16 +1473,13 @@ input[type='submit']:enabled:active, input[type='submit'].mui-active:enabled,
     z-index: 10;
     right: 0;
     left: 0;
-
-    height: 44px;
+    height: 55px;
     padding-right: 10px;
     padding-left: 10px;
-
     border-bottom: 0;
-    background-color: #f7f7f7;
+    background-color: #ff2739;
     -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, .85);
             box-shadow: 0 0 1px rgba(0, 0, 0, .85);
-
     -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
 }
@@ -1566,9 +1563,9 @@ input[type='submit']:enabled:active, input[type='submit'].mui-active:enabled,
 
 .mui-title
 {
-    font-size: 17px;
+    font-size: 18px;
     font-weight: 500;
-    line-height: 44px;
+    line-height: 55px;
 
     position: absolute;
 
@@ -1581,7 +1578,7 @@ input[type='submit']:enabled:active, input[type='submit'].mui-active:enabled,
     text-align: center;
     white-space: nowrap;
 
-    color: #000;
+    color: #fff;
 }
 
 .mui-title a
